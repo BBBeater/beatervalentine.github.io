@@ -3,189 +3,185 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Valentine 💖</title>
+  <title>Valentine for Pookie 💖</title>
   <style>
-    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    * { box-sizing: border-box; font-family: 'Arial', 'Microsoft YaHei', sans-serif; }
     body {
       margin: 0;
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: radial-gradient(circle at top, #ffd6ea, #fff);
+      background-color: #ffeef2;
       overflow: hidden;
     }
 
-    .page { display: none; width: 100%; height: 100%; justify-content: center; align-items: center; flex-direction: column; }
+    .page { display: none; width: 100%; height: 100%; justify-content: center; align-items: center; flex-direction: column; text-align: center; }
     .page.active { display: flex; }
 
-    /* ---------- HEART HOLD PAGE ---------- */
-    .heart-wrap {
-      text-align: center;
-    }
-
-    .heart {
-      width: 180px;
-      height: 160px;
+    /* ---------- หน้าหัวใจ (หน้า 1) ---------- */
+    .heart-container {
       position: relative;
-      transform: rotate(-45deg);
-      border: 4px solid #ff4f9a;
-      border-radius: 20px;
-      overflow: hidden;
-      background: white;
+      width: 160px;
+      height: 140px;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    .heart::before,
-    .heart::after {
-      content: '';
-      position: absolute;
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      border: 4px solid #ff4f9a;
-      background: white;
+    /* ใช้ Clip-path สร้างรูปหัวใจเพื่อให้ดูเนียนเหมือนในรูป */
+    .heart-shape {
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      border: 4px solid #ff4d6d;
+      clip-path: path('M80 140L68.4 129.5C27.2 92.2 0 67.8 0 42C0 20.8 16.6 4 37.8 4C49.8 4 61.2 9.6 68.4 18.4C75.6 9.6 87 4 99 4C120.2 4 136.8 20.8 136.8 42C136.8 67.8 109.6 92.2 68.4 129.5L80 140Z');
+      position: relative;
     }
-
-    .heart::before { top: -90px; left: 0; }
-    .heart::after { left: 90px; top: 0; }
 
     .fill {
       position: absolute;
       bottom: 0;
-      left: 0;
       width: 100%;
       height: 0%;
-      background: linear-gradient(180deg, #ff7abf, #ff3d8b);
+      background: #ff4d6d;
       transition: height 0.1s linear;
     }
 
-    .hint {
-      margin-top: 28px;
-      color: #ff4f9a;
-      font-size: 18px;
-      animation: blink 1.5s infinite;
+    .instruction {
+      margin-top: 25px;
+      color: #ff4d6d;
+      font-weight: bold;
+      font-size: 1.2rem;
     }
 
-    @keyframes blink {
-      0%,100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
+    #percent-text { color: #ff4d6d; font-size: 0.9rem; margin-top: 5px; }
 
-    /* ---------- VALENTINE PAGE ---------- */
-    .card {
-      background: white;
-      padding: 36px 40px;
-      border-radius: 28px;
-      text-align: center;
-      box-shadow: 0 12px 35px rgba(0,0,0,0.12);
-      animation: pop 0.4s ease;
-    }
+    /* ---------- หน้าถาม (หน้า 2) ---------- */
+    .bear-img { width: 160px; margin-bottom: 10px; }
+    h1 { color: #333; font-size: 1.8rem; margin-bottom: 30px; }
 
-    @keyframes pop {
-      from { transform: scale(0.7); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-
-    h1 {
-      margin: 0 0 28px;
-    }
-
-    .buttons {
+    .btn-group {
       display: flex;
-      gap: 18px;
       justify-content: center;
+      align-items: center;
+      gap: 20px;
+      min-height: 150px; /* จองที่ไว้ให้ปุ่มขยาย */
     }
 
     button {
-      padding: 14px 30px;
-      font-size: 18px;
+      padding: 12px 25px;
+      border-radius: 12px;
       border: none;
-      border-radius: 18px;
+      font-weight: bold;
       cursor: pointer;
-      transition: all 0.25s ease;
+      transition: all 0.2s ease;
     }
 
-    #yes {
-      background: #4CAF50;
-      color: white;
-    }
-
-    #no {
-      background: #ff4f4f;
-      color: white;
-    }
+    #yes { background-color: #28a745; color: white; font-size: 18px; z-index: 10; }
+    #no { background-color: #ff4d6d; color: white; font-size: 14px; }
 
   </style>
 </head>
 <body>
 
-  <!-- PAGE 1 : HOLD HEART -->
   <div class="page active" id="page1">
-    <div class="heart-wrap">
-      <div class="heart" id="heart">
+    <div class="heart-container" id="heart">
+      <div class="heart-shape">
         <div class="fill" id="fill"></div>
       </div>
-      <div class="hint">กดค้างที่หัวใจนะ 💗</div>
     </div>
+    <div class="instruction">กดค้างไว้นะ...</div>
+    <div id="percent-text">0%</div>
   </div>
 
-  <!-- PAGE 2 : VALENTINE -->
   <div class="page" id="page2">
-    <div class="card">
-      <h1>Will you be my Valentine? 💘</h1>
-      <div class="buttons">
-        <button id="yes">Yes</button>
-        <button id="no">No</button>
-      </div>
+    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3bmZ3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/KztT2c4u8mYYUiMKd1/giphy.gif" class="bear-img" alt="Cute Bear">
+    <h1 id="question-text">Will you be my Valentine? 💘</h1>
+    <div class="btn-group">
+      <button id="yes">Yes</button>
+      <button id="no">No</button>
     </div>
   </div>
 
   <script>
     const fill = document.getElementById('fill');
     const heart = document.getElementById('heart');
+    const percentDisplay = document.getElementById('percent-text');
     const page1 = document.getElementById('page1');
     const page2 = document.getElementById('page2');
 
     let progress = 0;
-    let interval = null;
+    let holdInterval = null;
 
-    function startHold() {
-      if (interval) return;
-      interval = setInterval(() => {
-        progress += 2;
-        fill.style.height = progress + '%';
-        if (progress >= 100) {
-          clearInterval(interval);
+    // การทำงานหน้า 1
+    function startFilling(e) {
+      e.preventDefault();
+      if (holdInterval) return;
+      holdInterval = setInterval(() => {
+        if (progress < 100) {
+          progress += 1.5; // ความเร็วการเติม
+          fill.style.height = progress + '%';
+          percentDisplay.innerText = Math.floor(progress) + '%';
+        } else {
+          clearInterval(holdInterval);
           page1.classList.remove('active');
           page2.classList.add('active');
         }
       }, 30);
     }
 
-    function stopHold() {
-      clearInterval(interval);
-      interval = null;
-      progress = 0;
-      fill.style.height = '0%';
+    function stopFilling() {
+      clearInterval(holdInterval);
+      holdInterval = null;
+      // ถ้าปล่อยก่อน 100 ให้รีเซ็ต (หรือจะไม่รีเซ็ตก็ได้แล้วแต่ชอบครับ)
+      if (progress < 100) {
+        progress = 0;
+        fill.style.height = '0%';
+        percentDisplay.innerText = '0%';
+      }
     }
 
-    heart.addEventListener('mousedown', startHold);
-    heart.addEventListener('touchstart', startHold);
-    heart.addEventListener('mouseup', stopHold);
-    heart.addEventListener('mouseleave', stopHold);
-    heart.addEventListener('touchend', stopHold);
+    heart.addEventListener('mousedown', startFilling);
+    heart.addEventListener('touchstart', startFilling);
+    window.addEventListener('mouseup', stopFilling);
+    window.addEventListener('touchend', stopFilling);
 
+    // การทำงานหน้า 2
     const yesBtn = document.getElementById('yes');
     const noBtn = document.getElementById('no');
+    const noPhrases = [
+      "No", 
+      "แน่ใจหรอ?", 
+      "คิดดูอีกทีน้าา", 
+      "ให้โอกาสอีกรอบ!", 
+      "Pookie please...", 
+      "ถ้ากด No ปุ่ม Yes จะใหญ่ขึ้นอีกนะ!",
+      "จะกดจริงๆ หรอ? 🥺"
+    ];
+    let noClickCount = 0;
     let yesScale = 1;
 
     noBtn.addEventListener('click', () => {
-      yesScale += 0.18;
+      noClickCount++;
+      // ขยายปุ่ม Yes
+      yesScale += 0.4; 
       yesBtn.style.transform = `scale(${yesScale})`;
+      
+      // เปลี่ยนข้อความปุ่ม No วนไปเรื่อยๆ
+      noBtn.innerText = noPhrases[noClickCount % noPhrases.length];
+      
+      // ขยับปุ่ม No หนีนิดหน่อย (Option เสริมความกวน)
+      const x = Math.random() * 10 - 5;
+      const y = Math.random() * 10 - 5;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
     });
 
     yesBtn.addEventListener('click', () => {
-      document.body.innerHTML = '<h1 style="color:#ff4f9a">เย้!! 💖 เป็นแฟนกันแล้วนะ</h1>';
+      document.getElementById('question-text').innerText = "เย้! ❤️ เจอกันวันวาเลนไทน์นะ!";
+      document.querySelector('.btn-group').innerHTML = "<h2>เดี๋ยวไปรับครับ! ✨</h2>";
+      // เพิ่มความน่ารักด้วยการเปลี่ยนรูปหมี
+      document.querySelector('.bear-img').src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNGhxcW9icm80bmR6MmtuM2d4M2Fic2R4Nzh4bmZyeHhhbmZ4Z3Z4dyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/iCVz2SSGuMDU2Pqk7C/giphy.gif";
     });
   </script>
 
