@@ -203,13 +203,25 @@ window.addEventListener('touchend', stopHold);
 const yesBtn = document.getElementById('yes');
 const noBtn = document.getElementById('no');
 const noTexts = ["No", "แน่ใจหรอ?", "คิดดีๆนะ", "Pookie 🥺", "กด Yes เถอะ"];
+
 let noCount = 0;
+let yesScale = 1;
 
 noBtn.addEventListener('click', () => {
   noCount++;
+
+  // เปลี่ยนข้อความ No
   noBtn.innerText = noTexts[noCount % noTexts.length];
-  noBtn.style.transform = `scale(${Math.max(0.75, 1 - noCount * 0.08)})`;
-  noBtn.style.opacity = Math.max(0.4, 1 - noCount * 0.12);
+
+  // ✅ YES ขยายเรื่อย ๆ
+  yesScale += 0.25;
+  yesBtn.style.transform = `scale(${yesScale})`;
+
+  // ❌ NO ค่อย ๆ เล็ก + จาง (ไม่ขยับตำแหน่ง)
+  const noScale = Math.max(0.7, 1 - noCount * 0.08);
+  const noOpacity = Math.max(0.35, 1 - noCount * 0.12);
+  noBtn.style.transform = `scale(${noScale})`;
+  noBtn.style.opacity = noOpacity;
 });
 
 yesBtn.addEventListener('click', () => {
