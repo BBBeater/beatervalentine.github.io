@@ -31,7 +31,7 @@
 
         .page.active { display: flex; }
 
-        /* ---------- 1. HEART (BIGGER & SMOOTHER) ---------- */
+        /* ---------- 1. HEART SECTION ---------- */
         .heart-svg {
             width: 280px; 
             height: 250px;
@@ -60,24 +60,24 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        /* ---------- 2. YES/NO PAGE (CUTER & FULLER) ---------- */
+        /* ---------- 2. YES/NO SECTION ---------- */
         .container {
             position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
             max-width: 100%;
             padding: 20px;
         }
 
         .gif-container img {
-            width: 250px; /* ขนาดกำลังดี ไม่ใหญ่จนล้น */
-            height: auto;
+            width: 250px;
+            height: 250px; /* Fix ความสูงไว้ ภาพจะได้ไม่กระโดด */
             border-radius: 15px;
             filter: drop-shadow(0 8px 16px rgba(0,0,0,0.1));
             transition: all 0.3s ease;
-            object-fit: cover;
+            object-fit: cover; /* ให้ภาพเต็มกรอบสวยๆ */
         }
 
         h1 {
@@ -97,7 +97,7 @@
             align-items: center;
             width: 100%;
             margin-top: 10px;
-            z-index: 10; /* ให้ปุ่มอยู่เหนือรูปเสมอ */
+            z-index: 10;
         }
 
         .btn {
@@ -126,9 +126,18 @@
         }
         #no-btn:active { transform: translateY(5px); box-shadow: none; }
 
+        /* Preload images เพื่อไม่ให้กระตุก */
+        .preload { display: none; }
+
     </style>
 </head>
 <body>
+
+    <div class="preload">
+        <img src="https://media.tenor.com/WRRnrnJBMWMAAAAj/bubu-miss-dudu-bubu-cry.gif" />
+        <img src="https://media.tenor.com/f1xnRxTRxLAAAAAj/bears-with-kisses-bg.gif" />
+        <img src="https://media.tenor.com/8K5Q6F7V_6QAAAAj/bubu-dudu-cry.gif" />
+    </div>
 
     <div class="page active" id="page1">
         <svg class="heart-svg" viewBox="0 0 200 200" id="heart-trigger">
@@ -151,7 +160,7 @@
     <div class="page" id="page2">
         <div class="container">
             <div class="gif-container">
-                <img id="bear-img" src="https://media1.tenor.com/m/7zKltXj1sD4AAAAC/bubu-dudu-flower.gif" alt="Cute Bear">
+                <img id="bear-img" src="https://media.tenor.com/0imRtuzqccIAAAAj/bubu-dudu-flower-gift.gif" alt="Cute Bear">
             </div>
             <h1 id="question">Will you be my Valentine?</h1>
             <div class="buttons">
@@ -162,7 +171,7 @@
     </div>
 
     <script>
-        /* ---------- SMOOTH HEART LOGIC ---------- */
+        /* ---------- ส่วนหัวใจ (เหมือนเดิม) ---------- */
         const liquidRect = document.getElementById('liquid-rect');
         const heart = document.getElementById('heart-trigger');
         const page1 = document.getElementById('page1');
@@ -173,17 +182,13 @@
         let animationFrame;
 
         function updateProgress() {
-            if (isHolding) {
-                progress += 1.5; 
-            } else {
-                progress -= 2.5; 
-            }
+            if (isHolding) progress += 1.5; 
+            else progress -= 2.5; 
 
             if (progress < 0) progress = 0;
             if (progress > 100) progress = 100;
 
-            const yPos = 200 - (progress * 2);
-            liquidRect.setAttribute('y', yPos);
+            liquidRect.setAttribute('y', 200 - (progress * 2));
 
             if (progress >= 100) {
                 page1.classList.remove('active');
@@ -191,16 +196,11 @@
                 cancelAnimationFrame(animationFrame);
                 return;
             }
-
             animationFrame = requestAnimationFrame(updateProgress);
         }
-
         updateProgress();
 
-        const startHold = (e) => { 
-            if(e.cancelable) e.preventDefault(); 
-            isHolding = true; 
-        };
+        const startHold = (e) => { if(e.cancelable) e.preventDefault(); isHolding = true; };
         const stopHold = () => { isHolding = false; };
 
         heart.addEventListener('mousedown', startHold);
@@ -209,16 +209,26 @@
         window.addEventListener('touchend', stopHold);
 
 
-        /* ---------- MEWTRU LOGIC (YES/NO) ---------- */
+        /* ---------- ส่วนเปลี่ยน GIF (แก้ลิงก์ใหม่) ---------- */
         const yesBtn = document.getElementById('yes-btn');
         const noBtn = document.getElementById('no-btn');
-        const questionText = document.getElementById('question');
         const bearImg = document.getElementById('bear-img');
+
+        // ลิงก์รูปที่คัดมาแล้วว่าใช้ได้ชัวร์
+        const sadGifs = [
+            "https://media.tenor.com/WRRnrnJBMWMAAAAj/bubu-miss-dudu-bubu-cry.gif",  // ร้องไห้ 1
+            "https://media.tenor.com/moRhfDWGAIYAAAAj/bubu-dudu.gif",             // ร้องไห้ 2
+            "https://media.tenor.com/8K5Q6F7V_6QAAAAj/bubu-dudu-cry.gif"           // ร้องไห้ 3 (หนักสุด)
+        ];
+        
+        // รูปตอนจบ
+        const successGif = "https://media.tenor.com/f1xnRxTRxLAAAAAj/bears-with-kisses-bg.gif"; 
 
         const phrases = [
             "No", "Are you sure?", "Really sure?", "Pookie please 🥺", 
             "Don't do this!", "I'm gonna cry...", "You're breaking my heart ;("
         ];
+        
         let noCount = 0;
 
         noBtn.addEventListener('click', () => {
@@ -229,14 +239,14 @@
             const currentFontSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
             yesBtn.style.fontSize = (currentFontSize * 1.4) + "px";
 
-            // GIF 2: หมีร้องไห้ (เมื่อกด No)
-            bearImg.src = "https://media1.tenor.com/m/o656qOju6gSAAAAC/bubu-dudu-cry.gif"; 
+            // เปลี่ยนรูปร้องไห้ วนลูป 3 รูป
+            const sadIndex = (noCount - 1) % sadGifs.length;
+            bearImg.src = sadGifs[sadIndex];
         });
 
         yesBtn.addEventListener('click', () => {
-            // GIF 3: หมีจุ๊บกัน (เมื่อกด Yes)
             document.querySelector('.container').innerHTML = `
-                <img src="https://media1.tenor.com/m/Al01J05q6W8AAAAC/bubu-dudu-kiss.gif" style="width: 280px; filter: drop-shadow(0 0 20px rgba(255,0,0,0.2));">
+                <img src="${successGif}" style="width: 280px; filter: drop-shadow(0 0 20px rgba(255,0,0,0.2));">
                 <h1 style="font-size: 3rem; margin-top: 20px;">Yayyy! 💖</h1>
                 <p style="font-size: 1.5rem; color: #555;">Happy Valentine's Day!</p>
             `;
