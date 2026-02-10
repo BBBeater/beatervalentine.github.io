@@ -179,22 +179,39 @@ window.addEventListener('touchend', () => holding = false);
 
 loop();
 
-/* ---------- YES / NO ---------- */
+<script>
+/* ---------- YES / NO (mewtru style) ---------- */
 const yesBtn = document.getElementById('yes');
 const noBtn = document.getElementById('no');
-const texts = ["No","แน่ใจหรอ?","คิดดีๆนะ","Pookie 🥺","กด Yes เถอะ"];
-let count = 0;
+
+const noTexts = [
+  "No",
+  "แน่ใจหรอ?",
+  "คิดดีๆนะ",
+  "จริงดิ 🥺",
+  "อย่าดื้อเลย",
+  "กด Yes เถอะ ❤️"
+];
+
+let noCount = 0;
 let yesScale = 1;
 
 noBtn.addEventListener('click', () => {
-  count++;
-  noBtn.innerText = texts[count % texts.length];
+  noCount++;
 
-  yesScale += 0.25;
+  // เปลี่ยนข้อความ No
+  noBtn.innerText = noTexts[noCount % noTexts.length];
+
+  // YES ขยายใหญ่ขึ้นเรื่อยๆ (หัวใจหลักของเว็บต้นแบบ)
+  yesScale += 0.35;
   yesBtn.style.transform = `scale(${yesScale})`;
 
-  noBtn.style.transform = `scale(${Math.max(0.7,1-count*0.08)})`;
-  noBtn.style.opacity = Math.max(0.35,1-count*0.12);
+  // NO ค่อยๆ แพ้ (เล็กลง + จาง)
+  const noScale = Math.max(0.6, 1 - noCount * 0.1);
+  const noOpacity = Math.max(0.3, 1 - noCount * 0.15);
+
+  noBtn.style.transform = `scale(${noScale})`;
+  noBtn.style.opacity = noOpacity;
 });
 
 yesBtn.addEventListener('click', () => {
@@ -204,9 +221,11 @@ yesBtn.addEventListener('click', () => {
     <h1 style="color:#ff4d6d;margin-top:20px;">
       เย้! เป็นแฟนกันแล้วนะ 💖
     </h1>
-    <p>รักนะครับจุ๊บๆ</p>`;
+    <p>รักนะครับจุ๊บๆ</p>
+  `;
 });
 </script>
 
 </body>
 </html>
+
