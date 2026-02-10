@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Will you be my Valentine?</title>
     <link href="https://fonts.googleapis.com/css2?family=Protest+Riot&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         body {
             margin: 0;
@@ -16,7 +16,7 @@
             align-items: center;
             background-color: #ffe6ef;
             font-family: 'Nunito', sans-serif;
-            overflow: hidden;
+            overflow: hidden; /* ห้ามเลื่อนหน้าจอ */
         }
 
         .page {
@@ -27,28 +27,31 @@
             width: 100%;
             height: 100%;
             text-align: center;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
 
         .page.active { display: flex; }
 
-        /* ---------- 1. HEART SECTION ---------- */
+        /* ---------- 1. HEART (MOBILE FIX) ---------- */
+        /* ใช้ drop-shadow แทน box-shadow เพื่อประสิทธิภาพบนมือถือ */
         .heart-svg {
             width: 280px; 
             height: 250px;
             cursor: pointer;
             overflow: visible;
-            filter: drop-shadow(0 10px 25px rgba(255, 77, 109, 0.4));
+            filter: drop-shadow(0 10px 15px rgba(255, 77, 109, 0.3)); 
+            transform-origin: center;
             transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .heart-svg:active {
-            transform: scale(0.92);
-        }
+        .heart-svg:active { transform: scale(0.95); }
 
         .hint {
             margin-top: 30px;
             color: #ff4d6d;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 800;
             letter-spacing: 1px;
             animation: pulse 2s infinite;
@@ -60,49 +63,61 @@
             100% { transform: scale(1); opacity: 1; }
         }
 
-        /* ---------- 2. YES/NO SECTION ---------- */
+        /* ---------- 2. YES/NO PAGE (LAYOUT FIX) ---------- */
         .container {
             position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
-            max-width: 100%;
+            justify-content: center;
+            gap: 15px;
+            width: 100%;
+            height: 100%;
             padding: 20px;
         }
 
-        .gif-container img {
+        /* พื้นที่วางรูป: กำหนดขนาดแน่นอนเพื่อไม่ให้ layout ดีด */
+        .gif-container {
             width: 250px;
-            height: 250px; /* Fix ความสูงไว้ ภาพจะได้ไม่กระโดด */
-            border-radius: 15px;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gif-container img {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
             filter: drop-shadow(0 8px 16px rgba(0,0,0,0.1));
+            object-fit: cover;
             transition: all 0.3s ease;
-            object-fit: cover; /* ให้ภาพเต็มกรอบสวยๆ */
         }
 
         h1 {
             font-family: 'Protest Riot', cursive;
             color: #ff4d6d;
-            font-size: 2.2rem;
+            font-size: 2rem;
             margin: 10px 0;
             text-shadow: 2px 2px 0px #fff;
             line-height: 1.2;
+            z-index: 10;
         }
 
         .buttons {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
             align-items: center;
             width: 100%;
-            margin-top: 10px;
-            z-index: 10;
+            min-height: 60px;
+            z-index: 20; /* ปุ่มต้องอยู่บนสุดเสมอ */
         }
 
         .btn {
-            padding: 14px 32px;
-            font-size: 1.3rem;
+            padding: 12px 30px;
+            font-size: 1.2rem;
             border: none;
             border-radius: 50px;
             cursor: pointer;
@@ -110,24 +125,32 @@
             transition: all 0.2s;
             font-family: 'Nunito', sans-serif;
             white-space: nowrap;
+            /* ป้องกันการเลือกข้อความบนปุ่ม */
+            user-select: none; 
+            -webkit-user-select: none;
         }
 
         #yes-btn {
             background-color: #2ecc71;
             color: white;
-            box-shadow: 0 5px 0 #27ae60;
+            box-shadow: 0 4px 0 #27ae60;
+            /* สำคัญ: ยอมให้ปุ่มใหญ่ได้แต่ต้องไม่เกินจอ */
+            max-width: 95vw; 
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
-        #yes-btn:active { transform: translateY(5px); box-shadow: none; }
+        
+        #yes-btn:active { transform: translateY(4px); box-shadow: none; }
 
         #no-btn {
             background-color: #ff6b81;
             color: white;
-            box-shadow: 0 5px 0 #e8435d;
+            box-shadow: 0 4px 0 #e8435d;
         }
-        #no-btn:active { transform: translateY(5px); box-shadow: none; }
+        #no-btn:active { transform: translateY(4px); box-shadow: none; }
 
-        /* Preload images เพื่อไม่ให้กระตุก */
-        .preload { display: none; }
+        /* ซ่อน Preload */
+        .preload { width: 0; height: 0; opacity: 0; position: absolute; z-index: -1; }
 
     </style>
 </head>
@@ -135,24 +158,31 @@
 
     <div class="preload">
         <img src="https://media.tenor.com/WRRnrnJBMWMAAAAj/bubu-miss-dudu-bubu-cry.gif" />
-        <img src="https://media.tenor.com/f1xnRxTRxLAAAAAj/bears-with-kisses-bg.gif" />
+        <img src="https://media.tenor.com/moRhfDWGAIYAAAAj/bubu-dudu.gif" />
         <img src="https://media.tenor.com/8K5Q6F7V_6QAAAAj/bubu-dudu-cry.gif" />
+        <img src="https://media.tenor.com/f1xnRxTRxLAAAAAj/bears-with-kisses-bg.gif" />
     </div>
 
     <div class="page active" id="page1">
         <svg class="heart-svg" viewBox="0 0 200 200" id="heart-trigger">
-             <defs>
-                <path id="heart-path" d="M100 180 L88 168 C40 125 10 95 10 60 C10 30 35 5 65 5 C82 5 95 15 100 25 C105 15 118 5 135 5 C165 5 190 30 190 60 C190 95 160 125 112 168 Z" />
-                <clipPath id="heart-clip"> <use href="#heart-path"/> </clipPath>
+            <defs>
+                <path id="heart-shape" d="M100 180 L88 168 C40 125 10 95 10 60 C10 30 35 5 65 5 C82 5 95 15 100 25 C105 15 118 5 135 5 C165 5 190 30 190 60 C190 95 160 125 112 168 Z" />
+                
+                <clipPath id="heart-clip">
+                    <use href="#heart-shape" />
+                </clipPath>
+
                 <linearGradient id="pink-gradient" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stop-color="#ff8fab"/>
                     <stop offset="100%" stop-color="#ff0054"/>
                 </linearGradient>
             </defs>
 
-            <use href="#heart-path" fill="white"/>
+            <use href="#heart-shape" fill="white" />
+            
             <rect id="liquid-rect" x="0" y="200" width="200" height="200" fill="url(#pink-gradient)" clip-path="url(#heart-clip)" />
-            <use href="#heart-path" fill="none" stroke="#ff4d6d" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+            
+            <use href="#heart-shape" fill="none" stroke="#ff4d6d" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <div class="hint">Hold to fill my heart ❤️</div>
     </div>
@@ -160,9 +190,14 @@
     <div class="page" id="page2">
         <div class="container">
             <div class="gif-container">
-                <img id="bear-img" src="https://media.tenor.com/0imRtuzqccIAAAAj/bubu-dudu-flower-gift.gif" alt="Cute Bear">
+                <img id="bear-img" 
+                     src="https://media.tenor.com/0imRtuzqccIAAAAj/bubu-dudu-flower-gift.gif" 
+                     onerror="this.src='https://media.tenor.com/m/7zKltXj1sD4AAAAC/bubu-dudu-flower.gif'"
+                     alt="Cute Bear">
             </div>
+            
             <h1 id="question">Will you be my Valentine?</h1>
+            
             <div class="buttons">
                 <button id="yes-btn" class="btn">Yes</button>
                 <button id="no-btn" class="btn">No</button>
@@ -171,7 +206,7 @@
     </div>
 
     <script>
-        /* ---------- ส่วนหัวใจ (เหมือนเดิม) ---------- */
+        /* ---------- HEART LOGIC ---------- */
         const liquidRect = document.getElementById('liquid-rect');
         const heart = document.getElementById('heart-trigger');
         const page1 = document.getElementById('page1');
@@ -182,8 +217,8 @@
         let animationFrame;
 
         function updateProgress() {
-            if (isHolding) progress += 1.5; 
-            else progress -= 2.5; 
+            if (isHolding) progress += 2; // เพิ่มความเร็วให้ทันใจวัยรุ่น
+            else progress -= 3; 
 
             if (progress < 0) progress = 0;
             if (progress > 100) progress = 100;
@@ -200,28 +235,30 @@
         }
         updateProgress();
 
-        const startHold = (e) => { if(e.cancelable) e.preventDefault(); isHolding = true; };
+        const startHold = (e) => { 
+            if(e.cancelable) e.preventDefault(); // กันการกดค้างแล้วขึ้นเมนูบนมือถือ
+            isHolding = true; 
+        };
         const stopHold = () => { isHolding = false; };
 
+        // Event สำหรับมือถือสำคัญมาก
         heart.addEventListener('mousedown', startHold);
-        heart.addEventListener('touchstart', startHold);
+        heart.addEventListener('touchstart', startHold, {passive: false});
         window.addEventListener('mouseup', stopHold);
         window.addEventListener('touchend', stopHold);
 
 
-        /* ---------- ส่วนเปลี่ยน GIF (แก้ลิงก์ใหม่) ---------- */
+        /* ---------- YES/NO LOGIC ---------- */
         const yesBtn = document.getElementById('yes-btn');
         const noBtn = document.getElementById('no-btn');
         const bearImg = document.getElementById('bear-img');
 
-        // ลิงก์รูปที่คัดมาแล้วว่าใช้ได้ชัวร์
         const sadGifs = [
-            "https://media.tenor.com/WRRnrnJBMWMAAAAj/bubu-miss-dudu-bubu-cry.gif",  // ร้องไห้ 1
-            "https://media.tenor.com/moRhfDWGAIYAAAAj/bubu-dudu.gif",             // ร้องไห้ 2
-            "https://media.tenor.com/8K5Q6F7V_6QAAAAj/bubu-dudu-cry.gif"           // ร้องไห้ 3 (หนักสุด)
+            "https://media.tenor.com/WRRnrnJBMWMAAAAj/bubu-miss-dudu-bubu-cry.gif",
+            "https://media.tenor.com/moRhfDWGAIYAAAAj/bubu-dudu.gif",
+            "https://media.tenor.com/8K5Q6F7V_6QAAAAj/bubu-dudu-cry.gif"
         ];
         
-        // รูปตอนจบ
         const successGif = "https://media.tenor.com/f1xnRxTRxLAAAAAj/bears-with-kisses-bg.gif"; 
 
         const phrases = [
@@ -235,20 +272,25 @@
             noCount++;
             noBtn.innerText = phrases[Math.min(noCount, phrases.length - 1)];
             
-            // ขยายปุ่ม Yes
-            const currentFontSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
-            yesBtn.style.fontSize = (currentFontSize * 1.4) + "px";
-
-            // เปลี่ยนรูปร้องไห้ วนลูป 3 รูป
+            // Logic ขยายปุ่มแบบ Mobile Friendly
+            // อ่านค่า font-size ปัจจุบัน
+            let currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+            let newSize = currentSize * 1.3; // คูณ 1.3 พอ เดี๋ยวใหญ่เกินไวไป
+            
+            yesBtn.style.fontSize = newSize + "px";
+            
+            // เปลี่ยนรูปตามลำดับ
             const sadIndex = (noCount - 1) % sadGifs.length;
             bearImg.src = sadGifs[sadIndex];
         });
 
         yesBtn.addEventListener('click', () => {
             document.querySelector('.container').innerHTML = `
-                <img src="${successGif}" style="width: 280px; filter: drop-shadow(0 0 20px rgba(255,0,0,0.2));">
-                <h1 style="font-size: 3rem; margin-top: 20px;">Yayyy! 💖</h1>
-                <p style="font-size: 1.5rem; color: #555;">Happy Valentine's Day!</p>
+                <div class="gif-container">
+                    <img src="${successGif}" style="width: 100%; height: 100%; object-fit: contain;">
+                </div>
+                <h1 style="font-size: 2.5rem; margin-top: 20px;">Yayyy! 💖</h1>
+                <p style="font-size: 1.2rem; color: #555;">Happy Valentine's Day!</p>
             `;
         });
     </script>
