@@ -18,6 +18,7 @@ body {
   overflow: hidden;
 }
 
+/* ---------- PAGES ---------- */
 .page {
   display: none;
   width: 100%;
@@ -26,7 +27,6 @@ body {
   align-items: center;
   flex-direction: column;
 }
-
 .page.active { display: flex; }
 
 /* ---------- HEART ---------- */
@@ -34,24 +34,24 @@ body {
   width: 180px;
   height: 160px;
   cursor: pointer;
-  filter: drop-shadow(0 6px 18px rgba(255, 77, 109, 0.35));
+  filter: drop-shadow(0 5px 15px rgba(255,77,109,0.35));
 }
 
 #liquid-rect {
-  transition: y 0.12s linear;
+  transition: y 0.08s linear;
 }
 
 .hint {
-  margin-top: 26px;
+  margin-top: 20px;
   font-size: 18px;
   color: #ff4d6d;
   font-weight: bold;
-  animation: pulse 1.5s infinite;
+  animation: pulse 1.4s infinite;
 }
 
 @keyframes pulse {
   0%,100% { opacity:1; transform:scale(1); }
-  50% { opacity:0.7; transform:scale(0.97); }
+  50% { opacity:.7; transform:scale(.96); }
 }
 
 /* ---------- PAGE 2 ---------- */
@@ -60,11 +60,10 @@ body {
   padding: 40px;
   border-radius: 22px;
   text-align: center;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.12);
-  max-width: 90%;
+  box-shadow: 0 12px 35px rgba(0,0,0,.12);
 }
 
-h1 { margin-bottom: 28px; font-size: 24px; }
+h1 { margin-bottom: 30px; }
 
 .buttons {
   display: flex;
@@ -75,52 +74,46 @@ h1 { margin-bottom: 28px; font-size: 24px; }
 }
 
 button {
-  padding: 12px 34px;
+  padding: 14px 34px;
   font-size: 18px;
-  border: none;
   border-radius: 50px;
+  border: none;
   cursor: pointer;
   font-weight: bold;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: all .35s cubic-bezier(.175,.885,.32,1.275);
 }
 
 #yes {
   background: #2ecc71;
   color: white;
-  box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+  z-index: 2;
 }
 
 #no {
   background: #ff4d6d;
   color: white;
-  box-shadow: 0 5px 15px rgba(255, 77, 109, 0.3);
 }
 </style>
 </head>
 
 <body>
 
-<!-- PAGE 1 -->
+<!-- ---------- PAGE 1 ---------- -->
 <div class="page active" id="page1">
-
 <svg class="heart-svg" viewBox="0 0 200 200" id="heart-trigger">
   <defs>
     <path id="heart-path"
-      d="M100 180 L88 168
-      C40 125 10 95 10 60
-      C10 30 35 5 65 5
-      C82 5 95 15 100 25
-      C105 15 118 5 135 5
-      C165 5 190 30 190 60
-      C190 95 160 125 112 168
-      L100 180 Z"/>
-
+      d="M100 180 L88 168 C40 125 10 95 10 60
+         C10 30 35 5 65 5
+         C82 5 95 15 100 25
+         C105 15 118 5 135 5
+         C165 5 190 30 190 60
+         C190 95 160 125 112 168 Z" />
     <clipPath id="heart-clip">
       <use href="#heart-path"/>
     </clipPath>
-
     <linearGradient id="pink-gradient" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#ffb3d9"/>
+      <stop offset="0%" stop-color="#ff9acb"/>
       <stop offset="100%" stop-color="#ff3d8b"/>
     </linearGradient>
   </defs>
@@ -131,105 +124,87 @@ button {
   <use href="#heart-path" fill="none" stroke="#ff4d6d" stroke-width="6"/>
 </svg>
 
-<div class="hint">กดค้างที่หัวใจนะ ❤️</div>
+<div class="hint">กดค้างที่หัวใจ ❤️</div>
 </div>
 
-<!-- PAGE 2 -->
+<!-- ---------- PAGE 2 ---------- -->
 <div class="page" id="page2">
-  <div class="card">
-    <img src="https://media.giphy.com/media/KztT2c4u8mYYUiMKd1/giphy.gif" style="width:120px; margin-bottom:15px;">
-    <h1>Will you be my Valentine? 💘</h1>
-    <div class="buttons">
-      <button id="yes">Yes</button>
-      <button id="no">No</button>
-    </div>
-  </div>
+<div class="card">
+<img src="https://media.giphy.com/media/KztT2c4u8mYYUiMKd1/giphy.gif"
+     style="width:120px;margin-bottom:15px;">
+<h1>Will you be my Valentine? 💘</h1>
+
+<div class="buttons">
+  <button id="yes">Yes</button>
+  <button id="no">No</button>
+</div>
+</div>
 </div>
 
 <script>
+/* ---------- HEART LOGIC ---------- */
 const liquidRect = document.getElementById('liquid-rect');
 const heart = document.getElementById('heart-trigger');
 const page1 = document.getElementById('page1');
 const page2 = document.getElementById('page2');
 
 let progress = 0;
-let fillInterval = null;
-let drainInterval = null;
+let holding = false;
 
 function updateFill() {
   liquidRect.setAttribute('y', 200 - progress * 2);
 }
 
-function startHold(e) {
-  if (e.type === 'touchstart') e.preventDefault();
-  clearInterval(drainInterval);
+function loop() {
+  if (holding) {
+    progress = Math.min(100, progress + 1.4);
+  } else {
+    progress = Math.max(0, progress - 1.2);
+  }
 
-  if (fillInterval) return;
+  updateFill();
 
-  fillInterval = setInterval(() => {
-    progress += 1.6;
-    if (progress >= 100) {
-      progress = 100;
-      clearInterval(fillInterval);
-      setTimeout(() => {
-        page1.classList.remove('active');
-        page2.classList.add('active');
-      }, 300);
-    }
-    updateFill();
-  }, 20);
+  if (progress === 100) {
+    page1.classList.remove('active');
+    page2.classList.add('active');
+    return;
+  }
+  requestAnimationFrame(loop);
 }
 
-function stopHold() {
-  clearInterval(fillInterval);
-  fillInterval = null;
+heart.addEventListener('mousedown', e => { e.preventDefault(); holding = true; });
+heart.addEventListener('touchstart', e => { e.preventDefault(); holding = true; });
+window.addEventListener('mouseup', () => holding = false);
+window.addEventListener('touchend', () => holding = false);
 
-  drainInterval = setInterval(() => {
-    progress -= 1.2;
-    if (progress <= 0) {
-      progress = 0;
-      clearInterval(drainInterval);
-    }
-    updateFill();
-  }, 20);
-}
-
-heart.addEventListener('mousedown', startHold);
-heart.addEventListener('touchstart', startHold);
-window.addEventListener('mouseup', stopHold);
-window.addEventListener('touchend', stopHold);
+loop();
 
 /* ---------- YES / NO ---------- */
 const yesBtn = document.getElementById('yes');
 const noBtn = document.getElementById('no');
-const noTexts = ["No", "แน่ใจหรอ?", "คิดดีๆนะ", "Pookie 🥺", "กด Yes เถอะ"];
-
-let noCount = 0;
+const texts = ["No","แน่ใจหรอ?","คิดดีๆนะ","Pookie 🥺","กด Yes เถอะ"];
+let count = 0;
 let yesScale = 1;
 
 noBtn.addEventListener('click', () => {
-  noCount++;
+  count++;
+  noBtn.innerText = texts[count % texts.length];
 
-  // เปลี่ยนข้อความ No
-  noBtn.innerText = noTexts[noCount % noTexts.length];
-
-  // ✅ YES ขยายเรื่อย ๆ
   yesScale += 0.25;
   yesBtn.style.transform = `scale(${yesScale})`;
 
-  // ❌ NO ค่อย ๆ เล็ก + จาง (ไม่ขยับตำแหน่ง)
-  const noScale = Math.max(0.7, 1 - noCount * 0.08);
-  const noOpacity = Math.max(0.35, 1 - noCount * 0.12);
-  noBtn.style.transform = `scale(${noScale})`;
-  noBtn.style.opacity = noOpacity;
+  noBtn.style.transform = `scale(${Math.max(0.7,1-count*0.08)})`;
+  noBtn.style.opacity = Math.max(0.35,1-count*0.12);
 });
 
 yesBtn.addEventListener('click', () => {
   document.querySelector('.card').innerHTML = `
-    <img src="https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif" style="width:150px;">
-    <h1 style="color:#ff4d6d; margin-top:20px;">เย้! เป็นแฟนกันแล้วนะ 💖</h1>
-    <p>รักนะครับจุ๊บๆ</p>
-  `;
+    <img src="https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif"
+         style="width:150px;">
+    <h1 style="color:#ff4d6d;margin-top:20px;">
+      เย้! เป็นแฟนกันแล้วนะ 💖
+    </h1>
+    <p>รักนะครับจุ๊บๆ</p>`;
 });
 </script>
 
