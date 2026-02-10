@@ -4,23 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Will you be my Valentine?</title>
-    <link href="https://fonts.googleapis.com/css2?family=Protest+Riot&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Protest+Riot&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; }
         
         body {
             margin: 0;
-            padding: 0;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #f8a5c2; /* สีชมพูโทนเดียวกับต้นฉบับ */
-            font-family: 'Roboto', sans-serif; /* ฟอนต์อ่านง่าย */
-            overflow: hidden; /* ป้องกัน Scrollbar ตอนปุ่มใหญ่ */
+            background-color: #ffe6ef;
+            font-family: 'Nunito', sans-serif;
+            overflow: hidden;
         }
 
-        /* ---------- HEART PAGE ---------- */
         .page {
             display: none;
             flex-direction: column;
@@ -33,47 +31,61 @@
 
         .page.active { display: flex; }
 
-        /* SVG Heart Style (คงเดิมเพราะดีอยู่แล้ว) */
+        /* ---------- 1. HEART (BIGGER & SMOOTHER) ---------- */
         .heart-svg {
-            width: 180px;
-            height: 160px;
+            width: 280px; 
+            height: 250px;
             cursor: pointer;
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));
-            transition: transform 0.1s;
+            overflow: visible;
+            filter: drop-shadow(0 10px 25px rgba(255, 77, 109, 0.4));
+            transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .heart-svg:active { transform: scale(0.95); }
+
+        .heart-svg:active {
+            transform: scale(0.92);
+        }
 
         .hint {
-            margin-top: 25px;
-            color: #fff;
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            animation: bounce 2s infinite;
+            margin-top: 30px;
+            color: #ff4d6d;
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            animation: pulse 2s infinite;
         }
 
-        /* ---------- VALENTINE PAGE (Mewtru Style) ---------- */
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(0.95); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* ---------- 2. YES/NO PAGE (CUTER & FULLER) ---------- */
         .container {
+            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 20px;
-            max-width: 90%;
+            gap: 15px;
+            max-width: 100%;
+            padding: 20px;
         }
 
         .gif-container img {
-            width: 200px; /* ขนาดมาตรฐานรูปหมี */
+            width: 250px; /* ขนาดกำลังดี ไม่ใหญ่จนล้น */
             height: auto;
             border-radius: 15px;
-            /* drop-shadow เล็กน้อยเพื่อให้รูปลอย */
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+            filter: drop-shadow(0 8px 16px rgba(0,0,0,0.1));
+            transition: all 0.3s ease;
+            object-fit: cover;
         }
 
         h1 {
-            font-family: 'Protest Riot', cursive; /* ฟอนต์หัวข้อสไตล์น่ารัก */
-            color: #d63031;
-            font-size: 2.5rem;
+            font-family: 'Protest Riot', cursive;
+            color: #ff4d6d;
+            font-size: 2.2rem;
             margin: 10px 0;
+            text-shadow: 2px 2px 0px #fff;
             line-height: 1.2;
         }
 
@@ -84,46 +96,36 @@
             gap: 20px;
             align-items: center;
             width: 100%;
+            margin-top: 10px;
+            z-index: 10; /* ให้ปุ่มอยู่เหนือรูปเสมอ */
         }
 
         .btn {
-            padding: 12px 24px;
-            font-size: 1.2rem;
+            padding: 14px 32px;
+            font-size: 1.3rem;
             border: none;
-            border-radius: 8px;
+            border-radius: 50px;
             cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            white-space: nowrap; /* ห้ามตัดคำ */
+            font-weight: 800;
+            transition: all 0.2s;
+            font-family: 'Nunito', sans-serif;
+            white-space: nowrap;
         }
 
         #yes-btn {
-            background-color: #2ecc71; /* สีเขียว */
+            background-color: #2ecc71;
             color: white;
-            box-shadow: 0 4px 0 #27ae60;
+            box-shadow: 0 5px 0 #27ae60;
         }
-        #yes-btn:active { transform: translateY(4px); box-shadow: none; }
+        #yes-btn:active { transform: translateY(5px); box-shadow: none; }
 
         #no-btn {
-            background-color: #ff7675; /* สีแดงอมชมพู */
+            background-color: #ff6b81;
             color: white;
-            box-shadow: 0 4px 0 #d63031;
+            box-shadow: 0 5px 0 #e8435d;
         }
-        #no-btn:active { transform: translateY(4px); box-shadow: none; }
+        #no-btn:active { transform: translateY(5px); box-shadow: none; }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-10px);}
-            60% {transform: translateY(-5px);}
-        }
-
-        /* Success Message Styling */
-        .success-text {
-            font-family: 'Protest Riot', cursive;
-            font-size: 3rem;
-            color: #d63031;
-            margin-top: 20px;
-        }
     </style>
 </head>
 <body>
@@ -134,21 +136,22 @@
                 <path id="heart-path" d="M100 180 L88 168 C40 125 10 95 10 60 C10 30 35 5 65 5 C82 5 95 15 100 25 C105 15 118 5 135 5 C165 5 190 30 190 60 C190 95 160 125 112 168 Z" />
                 <clipPath id="heart-clip"> <use href="#heart-path"/> </clipPath>
                 <linearGradient id="pink-gradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#ff9acb"/>
-                    <stop offset="100%" stop-color="#ff3d8b"/>
+                    <stop offset="0%" stop-color="#ff8fab"/>
+                    <stop offset="100%" stop-color="#ff0054"/>
                 </linearGradient>
             </defs>
+
             <use href="#heart-path" fill="white"/>
             <rect id="liquid-rect" x="0" y="200" width="200" height="200" fill="url(#pink-gradient)" clip-path="url(#heart-clip)" />
-            <use href="#heart-path" fill="none" stroke="#ff4d6d" stroke-width="6"/>
+            <use href="#heart-path" fill="none" stroke="#ff4d6d" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <div class="hint">Press & Hold ❤️</div>
+        <div class="hint">Hold to fill my heart ❤️</div>
     </div>
 
     <div class="page" id="page2">
         <div class="container">
             <div class="gif-container">
-                <img id="bear-img" src="https://media.tenor.com/I7kd0jW_vBwAAAAi/bears-with-kisses-bg.gif" alt="Cute Bear">
+                <img id="bear-img" src="https://media1.tenor.com/m/7zKltXj1sD4AAAAC/bubu-dudu-flower.gif" alt="Cute Bear">
             </div>
             <h1 id="question">Will you be my Valentine?</h1>
             <div class="buttons">
@@ -159,36 +162,46 @@
     </div>
 
     <script>
-        /* ---------- HEART LOGIC (Page 1) ---------- */
+        /* ---------- SMOOTH HEART LOGIC ---------- */
         const liquidRect = document.getElementById('liquid-rect');
         const heart = document.getElementById('heart-trigger');
         const page1 = document.getElementById('page1');
         const page2 = document.getElementById('page2');
-        let progress = 0;
-        let interval = null;
-
-        function updateFill() { liquidRect.setAttribute('y', 200 - progress * 2); }
         
-        function startHold(e) {
-            if (e.cancelable) e.preventDefault();
-            if (interval) return;
-            interval = setInterval(() => {
-                progress += 2;
-                updateFill();
-                if (progress >= 100) {
-                    clearInterval(interval);
-                    page1.classList.remove('active');
-                    page2.classList.add('active');
-                }
-            }, 20);
+        let progress = 0;
+        let isHolding = false;
+        let animationFrame;
+
+        function updateProgress() {
+            if (isHolding) {
+                progress += 1.5; 
+            } else {
+                progress -= 2.5; 
+            }
+
+            if (progress < 0) progress = 0;
+            if (progress > 100) progress = 100;
+
+            const yPos = 200 - (progress * 2);
+            liquidRect.setAttribute('y', yPos);
+
+            if (progress >= 100) {
+                page1.classList.remove('active');
+                page2.classList.add('active');
+                cancelAnimationFrame(animationFrame);
+                return;
+            }
+
+            animationFrame = requestAnimationFrame(updateProgress);
         }
 
-        function stopHold() {
-            clearInterval(interval);
-            interval = null;
-            progress = 0; 
-            updateFill();
-        }
+        updateProgress();
+
+        const startHold = (e) => { 
+            if(e.cancelable) e.preventDefault(); 
+            isHolding = true; 
+        };
+        const stopHold = () => { isHolding = false; };
 
         heart.addEventListener('mousedown', startHold);
         heart.addEventListener('touchstart', startHold);
@@ -196,63 +209,37 @@
         window.addEventListener('touchend', stopHold);
 
 
-        /* ---------- MEWTRU LOGIC (Page 2) ---------- */
+        /* ---------- MEWTRU LOGIC (YES/NO) ---------- */
         const yesBtn = document.getElementById('yes-btn');
         const noBtn = document.getElementById('no-btn');
         const questionText = document.getElementById('question');
         const bearImg = document.getElementById('bear-img');
 
-        // คำพูดที่แกะมาจากต้นฉบับ mewtru
         const phrases = [
-            "No",
-            "Are you sure?",
-            "Really sure?",
-            "Think again!",
-            "Last chance!",
-            "Surely not?",
-            "You might regret this!",
-            "Give it another thought!",
-            "Are you absolutely certain?",
-            "This could be a mistake!",
-            "Have a heart!",
-            "Don't be so cold!",
-            "Change of heart?",
-            "Wouldn't you reconsider?",
-            "Is that your final answer?",
-            "You're breaking my heart ;(",
-            "Is that your final answer?",
-            "You're breaking my heart ;(",
-            "Plsss? :( You're breaking my heart",
+            "No", "Are you sure?", "Really sure?", "Pookie please 🥺", 
+            "Don't do this!", "I'm gonna cry...", "You're breaking my heart ;("
         ];
-
         let noCount = 0;
 
         noBtn.addEventListener('click', () => {
             noCount++;
+            noBtn.innerText = phrases[Math.min(noCount, phrases.length - 1)];
             
-            // 1. เปลี่ยนคำพูดปุ่ม No
-            // ถ้าคำพูดหมดแล้ว ให้วนใช้คำสุดท้าย
-            const phraseIndex = Math.min(noCount, phrases.length - 1);
-            noBtn.innerText = phrases[phraseIndex];
+            // ขยายปุ่ม Yes
+            const currentFontSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+            yesBtn.style.fontSize = (currentFontSize * 1.4) + "px";
 
-            // 2. ขยายปุ่ม Yes (หัวใจสำคัญคือการคูณขนาด)
-            // mewtru ใช้การคูณ font-size
-            const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
-            yesBtn.style.fontSize = `${currentSize * 1.4}px`; // คูณ 1.4 ทุกครั้ง
-
-            // 3. เปลี่ยนรูปหมีเป็นรูปร้องไห้/ตกใจ
-            // ใช้รูปหมีร้องไห้ของ Milk & Mocha (ยอดฮิตในเว็บนี้)
-            bearImg.src = "https://media.tenor.com/f1xnRxTRxLAAAAAj/bears-with-kisses-bg.gif"; 
+            // GIF 2: หมีร้องไห้ (เมื่อกด No)
+            bearImg.src = "https://media1.tenor.com/m/o656qOju6gSAAAAC/bubu-dudu-cry.gif"; 
         });
 
         yesBtn.addEventListener('click', () => {
-            // เมื่อตอบตกลง
+            // GIF 3: หมีจุ๊บกัน (เมื่อกด Yes)
             document.querySelector('.container').innerHTML = `
-                <img src="https://media.tenor.com/gUiu1zyxfzYAAAAi/bear-kiss-bear-kisses.gif" style="width: 250px;">
-                <div class="success-text">Yayyy! 💖</div>
-                <div style="font-size: 1.5rem; color: #333; margin-top: 10px;">Happy Valentine's Day!</div>
+                <img src="https://media1.tenor.com/m/Al01J05q6W8AAAAC/bubu-dudu-kiss.gif" style="width: 280px; filter: drop-shadow(0 0 20px rgba(255,0,0,0.2));">
+                <h1 style="font-size: 3rem; margin-top: 20px;">Yayyy! 💖</h1>
+                <p style="font-size: 1.5rem; color: #555;">Happy Valentine's Day!</p>
             `;
-            // เอฟเฟกต์ Confetti ถ้าต้องการ (ใส่เพิ่มได้)
         });
     </script>
 </body>
