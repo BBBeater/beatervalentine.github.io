@@ -38,7 +38,7 @@
         /* ---------- 1. RABBIT HEART SECTION ---------- */
         .heart-svg {
             width: 320px; 
-            height: 360px; /* สูงเผื่อหู */
+            height: 360px;
             cursor: pointer;
             overflow: visible;
             filter: drop-shadow(0 10px 15px rgba(255, 77, 109, 0.2)); 
@@ -143,18 +143,9 @@
         }
         #no-btn:active { transform: translateY(4px); box-shadow: none; }
 
-        .preload { width: 0; height: 0; opacity: 0; position: absolute; z-index: -1; }
-
     </style>
 </head>
 <body>
-
-    <div class="preload">
-        <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHR6dGZ5aGZ1a3p4ZWZ6cGZ5aGZ1a3p4ZWZ6cGZ5aGZ1a3p4ZWZ6cGZ5aGZ1a3p4ZWZ6cGZ5aGZ1a3p4ZWZ6cGZ5YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/QvBoMEcQ7DQXK/giphy.gif" />
-        <img src="https://media.tenor.com/K3gI-hM8gxQAAAAj/rabbit-cry.gif" />
-        <img src="https://media.tenor.com/xnYtYgH4WzEAAAAj/bunny-cry.gif" />
-        <img src="https://media.tenor.com/Z7s7KgKj3QAAAAAj/bunny-love.gif" />
-    </div>
 
     <div class="page active" id="page1">
         <svg class="heart-svg" viewBox="0 0 200 240" id="heart-trigger">
@@ -172,15 +163,16 @@
 
             <ellipse cx="100" cy="150" rx="55" ry="60" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
             <circle cx="100" cy="65" r="40" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
+
             <use href="#mini-heart-path" fill="white" />
             <rect id="liquid-rect" x="0" y="240" width="200" height="240" fill="url(#pink-gradient)" clip-path="url(#heart-clip)" />
             <use href="#mini-heart-path" fill="none" stroke="#ff4d6d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 
-            <ellipse cx="65" cy="165" rx="12" ry="10" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(-20 65 165)"/>
-            <ellipse cx="135" cy="165" rx="12" ry="10" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(20 135 165)"/>
+            <ellipse cx="62" cy="160" rx="13" ry="10" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(-30 62 160)"/>
+            <ellipse cx="138" cy="160" rx="13" ry="10" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(30 138 160)"/>
             
-            <ellipse cx="75" cy="205" rx="14" ry="10" fill="#fff" stroke="#ff9aaf" stroke-width="3" />
-            <ellipse cx="125" cy="205" rx="14" ry="10" fill="#fff" stroke="#ff9aaf" stroke-width="3" />
+            <ellipse cx="80" cy="205" rx="14" ry="11" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(-10 80 205)"/>
+            <ellipse cx="120" cy="205" rx="14" ry="11" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(10 120 205)"/>
 
         </svg>
         <div class="hint">Hold the bunny's heart ❤️</div>
@@ -215,13 +207,16 @@
         let animationFrame;
 
         function updateProgress() {
-            if (isHolding) progress += 2; 
-            else progress -= 3; 
+            // ปรับความเร็วตรงนี้ (ตัวเลขน้อย = ช้า, ตัวเลขมาก = เร็ว)
+            if (isHolding) {
+                progress += 0.6; // <--- ปรับให้ช้าลงแล้ว (เดิม 2)
+            } else {
+                progress -= 1;   // <--- ลดความเร็วตอนปล่อยด้วย จะได้ไม่วูบหายไปเลย
+            }
 
             if (progress < 0) progress = 0;
             if (progress > 100) progress = 100;
 
-            // ปรับค่า Y ให้สัมพันธ์กับ viewBox 240
             liquidRect.setAttribute('y', 240 - (progress * 2.4));
 
             if (progress >= 100) {
@@ -248,13 +243,18 @@
         const noBtn = document.getElementById('no-btn');
         const bearImg = document.getElementById('bear-img');
 
-        // รายชื่อ GIF กระต่ายร้องไห้ชุดใหม่
+        // ==========================================
+        //    ZONE แก้ไขรูปที่ 2 : รายชื่อ GIF ตอนเสียใจ
+        //    (ใส่ลิงก์รูปกี่รูปก็ได้ คั่นด้วยเครื่องหมายจุลภาค , )
+        // ==========================================
         const sadGifs = [
             "https://media.tenor.com/K3gI-hM8gxQAAAAj/rabbit-cry.gif",
             "https://media.tenor.com/xnYtYgH4WzEAAAAj/bunny-cry.gif"
         ];
         
-        // GIF กระต่ายกอดกัน (เมื่อกด Yes)
+        // ==========================================
+        //    ZONE แก้ไขรูปที่ 3 : รูปตอนสำเร็จ (กด Yes)
+        // ==========================================
         const successGif = "https://media.tenor.com/Z7s7KgKj3QAAAAAj/bunny-love.gif"; 
 
         const phrases = [
