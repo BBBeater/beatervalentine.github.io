@@ -157,31 +157,50 @@
     </div>
 
     <div class="page active" id="page1">
-        <svg class="heart-svg" viewBox="0 0 200 200" id="heart-trigger">
+        <svg class="heart-svg" viewBox="0 0 200 220" id="heart-trigger" style="height: 330px; width: 330px;">
             <defs>
-                <path id="mini-heart-path" transform="translate(50, 60) scale(0.5)" d="M100 180 L88 168 C40 125 10 95 10 60 C10 30 35 5 65 5 C82 5 95 15 100 25 C105 15 118 5 135 5 C165 5 190 30 190 60 C190 95 160 125 112 168 Z" />
-                
+                <path id="mini-heart-path" transform="translate(50, 75) scale(0.5)" d="M100 180 L88 168 C40 125 10 95 10 60 C10 30 35 5 65 5 C82 5 95 15 100 25 C105 15 118 5 135 5 C165 5 190 30 190 60 C190 95 160 125 112 168 Z" />
                 <clipPath id="heart-clip"> <use href="#mini-heart-path" /> </clipPath>
-                
                 <linearGradient id="pink-gradient" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stop-color="#ff8fab"/>
                     <stop offset="100%" stop-color="#ff0054"/>
                 </linearGradient>
             </defs>
 
-            <path d="M60 90 Q50 20 80 15 Q100 15 90 90" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
-            <path d="M140 90 Q150 20 120 15 Q100 15 110 90" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
+            <g stroke="#ff9aaf" stroke-width="4" fill="#fff">
+                <path d="M70 90 C 60 20, 30 20, 40 80 C 45 100, 70 100, 70 90 Z" />
+                <path d="M130 90 C 140 20, 170 20, 160 80 C 155 100, 130 100, 130 90 Z" />
+                <path d="M65 85 C 58 40, 40 40, 45 80" fill="none" stroke="#ffccd5" stroke-width="6" stroke-linecap="round"/>
+                <path d="M135 85 C 142 40, 160 40, 155 80" fill="none" stroke="#ffccd5" stroke-width="6" stroke-linecap="round"/>
 
-            <ellipse cx="100" cy="130" rx="60" ry="50" fill="#fff" stroke="#ff9aaf" stroke-width="4" /> <circle cx="100" cy="90" r="45" fill="#fff" stroke="#ff9aaf" stroke-width="4" /> <circle cx="82" cy="85" r="4" fill="#555" /> <circle cx="118" cy="85" r="4" fill="#555" /> <path d="M95 95 Q100 100 105 95" fill="none" stroke="#555" stroke-width="3" stroke-linecap="round" /> <ellipse cx="80" cy="100" rx="6" ry="3" fill="#ffccd5" opacity="0.6"/> <ellipse cx="120" cy="100" rx="6" ry="3" fill="#ffccd5" opacity="0.6"/> <use href="#mini-heart-path" fill="white" />
-            <rect id="liquid-rect" x="0" y="200" width="200" height="200" fill="url(#pink-gradient)" clip-path="url(#heart-clip)" />
-            <use href="#mini-heart-path" fill="none" stroke="#ff4d6d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M 50 140 C 50 80, 150 80, 150 140 C 160 180, 140 210, 100 210 C 60 210, 40 180, 50 140 Z" />
+            </g>
 
-            <ellipse cx="68" cy="120" rx="12" ry="10" fill="#fff" stroke="#ff9aaf" stroke-width="3" />
-            <ellipse cx="132" cy="120" rx="12" ry="10" fill="#fff" stroke="#ff9aaf" stroke-width="3" />
-            
-            <ellipse cx="70" cy="170" rx="15" ry="10" fill="#fff" stroke="#ff9aaf" stroke-width="3" />
-            <ellipse cx="130" cy="170" rx="15" ry="10" fill="#fff" stroke="#ff9aaf" stroke-width="3" />
+            <g transform="translate(0, 10)">
+                <circle cx="80" cy="95" r="7" fill="#444"/>
+                <circle cx="120" cy="95" r="7" fill="#444"/>
+                <circle cx="78" cy="92" r="3" fill="#fff"/>
+                <circle cx="118" cy="92" r="3" fill="#fff"/>
+                
+                <ellipse cx="100" cy="102" rx="4" ry="2.5" fill="#ff9aaf"/>
+                <path d="M96 108 Q100 113 104 108" fill="none" stroke="#444" stroke-width="2" stroke-linecap="round"/>
 
+                <ellipse cx="70" cy="108" rx="10" ry="6" fill="#ff8fab" opacity="0.5"/>
+                <ellipse cx="130" cy="108" rx="10" ry="6" fill="#ff8fab" opacity="0.5"/>
+            </g>
+
+            <g transform="translate(0, 10)">
+                 <use href="#mini-heart-path" fill="white" />
+                 <rect id="liquid-rect" x="0" y="200" width="200" height="200" fill="url(#pink-gradient)" clip-path="url(#heart-clip)" />
+                 <use href="#mini-heart-path" fill="none" stroke="#ff4d6d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+
+            <g fill="#fff" stroke="#ff9aaf" stroke-width="3">
+                <circle cx="75" cy="145" r="14" />
+                <circle cx="125" cy="145" r="14" />
+                <ellipse cx="75" cy="195" rx="16" ry="12" />
+                <ellipse cx="125" cy="195" rx="16" ry="12" />
+            </g>
         </svg>
         <div class="hint">Hold the bunny's heart ❤️</div>
     </div>
@@ -291,3 +310,4 @@
     </script>
 </body>
 </html>
+
