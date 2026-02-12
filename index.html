@@ -37,7 +37,7 @@
 
         /* ---------- 1. RABBIT HEART SECTION ---------- */
         .heart-svg {
-            width: 320px; 
+            width: 340px; /* ขยายพื้นที่อีกนิด */
             height: 360px;
             cursor: pointer;
             overflow: visible;
@@ -150,18 +150,18 @@
 <body>
 
     <div class="preload">
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNm54YmUxam9qbnc1eDc3ZmlzOHdvajhvMno2a3FkcTNrM210cDBsNyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/4asRlBKdJaPeBahjcL/giphy.gif" />
+        <img src="https://media.giphy.com/media/WBdduf0QEzoiFGoayf/giphy.gif" />
         <img src="https://media.giphy.com/media/LXhHZEFuu7YgaQvY5b/giphy.gif" />
         <img src="https://media.giphy.com/media/jwHVcOu725jHSUA6cT/giphy.gif" />
         <img src="https://media.giphy.com/media/BzKxwk839bwqM95aWz/giphy.gif" />
         <img src="https://media.giphy.com/media/lMiFZe6DY8s6CyYTiH/giphy.gif" />
-        <img src="https://media.giphy.com/media/nkGTPAn0ESO9MsyuQM/giphy.gif" />
+        <img src="https://media.giphy.com/media/PraA4BQRVgojuhoZdz/giphy.gif" />
     </div>
 
     <div class="page active" id="page1">
-        <svg class="heart-svg" viewBox="0 0 200 240" id="heart-trigger">
+        <svg class="heart-svg" viewBox="0 0 220 240" id="heart-trigger">
             <defs>
-                <path id="mini-heart-path" transform="translate(25, 70) scale(0.75)" d="M100 180 L88 168 C40 125 10 95 10 60 C10 30 35 5 65 5 C82 5 95 15 100 25 C105 15 118 5 135 5 C165 5 190 30 190 60 C190 95 160 125 112 168 Z" />
+                <path id="mini-heart-path" transform="translate(35, 80) scale(0.75)" d="M100 180 L88 168 C40 125 10 95 10 60 C10 30 35 5 65 5 C82 5 95 15 100 25 C105 15 118 5 135 5 C165 5 190 30 190 60 C190 95 160 125 112 168 Z" />
                 <clipPath id="heart-clip"> <use href="#mini-heart-path" /> </clipPath>
                 <linearGradient id="pink-gradient" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stop-color="#ff8fab"/>
@@ -169,21 +169,21 @@
                 </linearGradient>
             </defs>
 
-            <path d="M70 60 Q60 -10 85 -10 Q100 -10 95 60" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
-            <path d="M130 60 Q140 -10 115 -10 Q100 -10 105 60" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
+            <path d="M80 70 Q70 10 95 10 Q115 10 105 70" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
+            <path d="M140 70 Q150 10 125 10 Q105 10 115 70" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
 
-            <ellipse cx="100" cy="150" rx="55" ry="60" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
-            <circle cx="100" cy="65" r="40" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
+            <ellipse cx="110" cy="160" rx="65" ry="55" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
+            <circle cx="110" cy="75" r="50" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
 
             <use href="#mini-heart-path" fill="white" />
-            <rect id="liquid-rect" x="0" y="240" width="200" height="240" fill="url(#pink-gradient)" clip-path="url(#heart-clip)" />
+            <rect id="liquid-rect" x="0" y="240" width="220" height="240" fill="url(#pink-gradient)" clip-path="url(#heart-clip)" />
             <use href="#mini-heart-path" fill="none" stroke="#ff4d6d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 
-            <ellipse cx="62" cy="160" rx="13" ry="10" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(-30 62 160)"/>
-            <ellipse cx="138" cy="160" rx="13" ry="10" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(30 138 160)"/>
+            <ellipse cx="70" cy="165" rx="15" ry="12" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(-20 70 165)"/>
+            <ellipse cx="150" cy="165" rx="15" ry="12" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(20 150 165)"/>
             
-            <ellipse cx="80" cy="205" rx="14" ry="11" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(-10 80 205)"/>
-            <ellipse cx="120" cy="205" rx="14" ry="11" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(10 120 205)"/>
+            <ellipse cx="85" cy="210" rx="16" ry="12" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(-15 85 210)"/>
+            <ellipse cx="135" cy="210" rx="16" ry="12" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(15 135 210)"/>
 
         </svg>
         <div class="hint">Hold the bunny's heart ❤️</div>
@@ -193,7 +193,7 @@
         <div class="container">
             <div class="gif-container">
                 <img id="bear-img" 
-                     src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNm54YmUxam9qbnc1eDc3ZmlzOHdvajhvMno2a3FkcTNrM210cDBsNyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/4asRlBKdJaPeBahjcL/giphy.gif" 
+                     src="https://media.giphy.com/media/WBdduf0QEzoiFGoayf/giphy.gif" 
                      alt="Cute Bunny">
             </div>
             
@@ -218,7 +218,7 @@
         let animationFrame;
 
         function updateProgress() {
-            // ความเร็วระดับกลางๆ (ไม่ต้องกดนานเกินไป)
+            // ความเร็วระดับกลางๆ
             if (isHolding) {
                 progress += 0.6; 
             } else {
@@ -265,9 +265,9 @@
         ];
         
         // ==========================================
-        //    ZONE แก้ไขรูปที่ 3 : รูปตอนสำเร็จ (กด Yes)
+        //    ZONE แก้ไขรูปที่ 3 : รูปตอนสำเร็จ (กด Yes) (แก้ไขแล้ว)
         // ==========================================
-        const successGif = "https://media.giphy.com/media/nkGTPAn0ESO9MsyuQM/giphy.gif"; 
+        const successGif = "https://media.giphy.com/media/PraA4BQRVgojuhoZdz/giphy.gif"; 
 
         const phrases = [
             "No", "Are you sure?", "Really sure?", "Baby please 🥺", 
