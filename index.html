@@ -38,7 +38,7 @@
         /* ---------- 1. RABBIT HEART SECTION ---------- */
         .heart-svg {
             width: 340px;
-            height: 380px; /* เพิ่มความสูงเผื่อหูยาว */
+            height: 380px; 
             cursor: pointer;
             overflow: visible;
             filter: drop-shadow(0 10px 15px rgba(255, 77, 109, 0.2)); 
@@ -159,9 +159,9 @@
     </div>
 
     <div class="page active" id="page1">
-        <svg class="heart-svg" viewBox="0 -40 220 280" id="heart-trigger">
+        <svg class="heart-svg" viewBox="0 0 220 300" id="heart-trigger">
             <defs>
-                <path id="mini-heart-path" transform="translate(35, 80) scale(0.75)" d="M100 180 L88 168 C40 125 10 95 10 60 C10 30 35 5 65 5 C82 5 95 15 100 25 C105 15 118 5 135 5 C165 5 190 30 190 60 C190 95 160 125 112 168 Z" />
+                <path id="mini-heart-path" transform="translate(35, 90) scale(0.75)" d="M100 180 L88 168 C40 125 10 95 10 60 C10 30 35 5 65 5 C82 5 95 15 100 25 C105 15 118 5 135 5 C165 5 190 30 190 60 C190 95 160 125 112 168 Z" />
                 <clipPath id="heart-clip"> <use href="#mini-heart-path" /> </clipPath>
                 <linearGradient id="pink-gradient" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="0%" stop-color="#ff8fab"/>
@@ -169,21 +169,25 @@
                 </linearGradient>
             </defs>
 
-            <path d="M85 65 Q75 -30 105 -30 Q125 -30 110 65" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
-            <path d="M135 65 Q145 -30 115 -30 Q95 -30 110 65" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
+            <g fill="#fff" stroke="#ff9aaf" stroke-width="4">
+                <path d="M90 60 C 70 0, 40 0, 60 70 C 65 85, 85 85, 90 60 Z" />
+                <path d="M130 60 C 150 0, 180 0, 160 70 C 155 85, 135 85, 130 60 Z" />
 
-            <ellipse cx="110" cy="160" rx="55" ry="58" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
-            <circle cx="110" cy="70" r="42" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
+                <path d="M75 150 C 65 210, 155 210, 145 150 C 140 110, 80 110, 75 150 Z" />
+
+                <circle cx="110" cy="85" r="45" />
+            </g>
 
             <use href="#mini-heart-path" fill="white" />
             <rect id="liquid-rect" x="0" y="240" width="220" height="280" fill="url(#pink-gradient)" clip-path="url(#heart-clip)" />
             <use href="#mini-heart-path" fill="none" stroke="#ff4d6d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 
-            <ellipse cx="75" cy="160" rx="13" ry="10" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(-20 75 160)"/>
-            <ellipse cx="145" cy="160" rx="13" ry="10" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(20 145 160)"/>
-            
-            <ellipse cx="90" cy="210" rx="14" ry="11" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(-15 90 210)"/>
-            <ellipse cx="130" cy="210" rx="14" ry="11" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(15 130 210)"/>
+            <g fill="#fff" stroke="#ff9aaf" stroke-width="3">
+                <ellipse cx="75" cy="165" rx="15" ry="12" transform="rotate(-25 75 165)"/>
+                <ellipse cx="145" cy="165" rx="15" ry="12" transform="rotate(25 145 165)"/>
+                <ellipse cx="85" cy="215" rx="18" ry="14" transform="rotate(-10 85 215)"/>
+                <ellipse cx="135" cy="215" rx="18" ry="14" transform="rotate(10 135 215)"/>
+            </g>
 
         </svg>
         <div class="hint">Hold the bunny's heart ❤️</div>
@@ -218,6 +222,7 @@
         let animationFrame;
 
         function updateProgress() {
+            // ความเร็วระดับกลางๆ
             if (isHolding) {
                 progress += 0.6; 
             } else {
