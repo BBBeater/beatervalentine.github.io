@@ -265,7 +265,7 @@
         ];
         
         // ==========================================
-        //    ZONE แก้ไขรูปที่ 3 : รูปตอนสำเร็จ (กด Yes) (แก้ไขแล้ว)
+        //    ZONE แก้ไขรูปที่ 3 : รูปตอนสำเร็จ (กด Yes)
         // ==========================================
         const successGif = "https://media.giphy.com/media/PraA4BQRVgojuhoZdz/giphy.gif"; 
 
@@ -289,12 +289,12 @@
         });
 
         yesBtn.addEventListener('click', () => {
+            // แก้ไขข้อความตรงนี้ครับ
             document.querySelector('.container').innerHTML = `
                 <div class="gif-container">
                     <img src="${successGif}" style="width: 100%; height: auto; object-fit: contain;">
                 </div>
-                <h1 style="font-size: 2rem; margin-top: 20px;">Yayyy! 💖</h1>
-                <p style="font-size: 1.2rem; color: #555;">Happy Valentine's Day!</p>
+                <h1 style="font-size: 2rem; margin-top: 20px;">Happy Valentine's Day! 💖</h1>
             `;
         });
     </script>
