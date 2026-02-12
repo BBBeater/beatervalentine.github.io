@@ -48,14 +48,16 @@
 
         .heart-svg:active { transform: scale(0.95); }
 
-        /* เพิ่ม Animation สำหรับคลื่นน้ำ */
+        /* Animation คลื่นน้ำ */
         .wave-anim {
-            animation: wave-move 2s linear infinite; /* คลื่นขยับตลอดเวลา */
+            /* ปรับเวลาเป็น 3s ให้คลื่นเคลื่อนที่ช้าลงนิดนึง ดูนุ่มนวลขึ้น */
+            animation: wave-move 3s linear infinite; 
         }
 
         @keyframes wave-move {
             0% { transform: translateX(0); }
-            100% { transform: translateX(-200px); /* ขยับไปทางซ้ายให้ครบ 1 ลูปคลื่น */ }
+            /* ขยับไปทางซ้าย 200px เพื่อให้ครบ 1 ลูปของคลื่นลูกใหม่ */
+            100% { transform: translateX(-200px); }
         }
 
         .hint {
@@ -190,8 +192,9 @@
             <g clip-path="url(#heart-clip)">
                 <g id="liquid-group" transform="translate(0, 205)">
                     <path class="wave-anim" fill="url(#pink-gradient)" 
-                          d="M0,0 C50,25 150,25 200,0 C250,25 350,25 400,0 V300 H0 V0 Z"
-                          transform="translate(-100, 0)" />
+                          d="M0,0 C 30,-15 70,-15 100,0 C 130,15 170,15 200,0 C 230,-15 270,-15 300,0 C 330,15 370,15 400,0 V300 H0 Z"
+                          transform="translate(-50, 0)" 
+                    />
                 </g>
             </g>
 
@@ -225,8 +228,8 @@
     </div>
 
     <script>
-        /* ---------- HEART LOGIC (แก้ไขให้รองรับคลื่น) ---------- */
-        const liquidGroup = document.getElementById('liquid-group'); // เปลี่ยนจาก rect เป็น group
+        /* ---------- HEART LOGIC ---------- */
+        const liquidGroup = document.getElementById('liquid-group');
         const heart = document.getElementById('heart-trigger');
         const page1 = document.getElementById('page1');
         const page2 = document.getElementById('page2');
@@ -246,9 +249,9 @@
             if (progress > 100) progress = 100;
 
             // คำนวณตำแหน่ง Y ใหม่ (ระยะทาง 135px จาก 205 ถึง 70)
-            const newY = 205 - (progress / 100 * 135);
+            // ปรับค่าปลายทางนิดหน่อยเพื่อให้คลื่นส่วนบนสุดแตะขอบหัวใจพอดี
+            const newY = 205 - (progress / 100 * 140);
             
-            // ใช้ transform: translate(0, y) แทนการตั้งค่า attribute y
             liquidGroup.setAttribute('transform', `translate(0, ${newY})`);
 
             if (progress >= 100) {
@@ -287,7 +290,7 @@
         const successGif = "https://media.giphy.com/media/PraA4BQRVgojuhoZdz/giphy.gif"; 
 
         const phrases = [
-            "No", "Are you sure?", "Really sure?", "Baby please 🥺", 
+            "No", "Are you sure?", "Really sure?", "ฺBaby please 🥺", 
             "Don't do this!", "I'm gonna cry...", "You're breaking my heart ;("
         ];
         
@@ -310,7 +313,7 @@
                 <div class="gif-container">
                     <img src="${successGif}" style="width: 100%; height: auto; object-fit: contain;">
                 </div>
-                <h1 style="font-size: 2rem; margin-top: 20px;">Happy Valentine's Day! My jeans💖</h1>
+                <h1 style="font-size: 2rem; margin-top: 20px;">Happy Valentine Day! My love💖</h1>
             `;
         });
     </script>
