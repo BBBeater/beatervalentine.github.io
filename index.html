@@ -37,8 +37,8 @@
 
         /* ---------- 1. RABBIT HEART SECTION ---------- */
         .heart-svg {
-            width: 340px; /* ขยายพื้นที่อีกนิด */
-            height: 360px;
+            width: 340px;
+            height: 380px; /* เพิ่มความสูงเผื่อหูยาว */
             cursor: pointer;
             overflow: visible;
             filter: drop-shadow(0 10px 15px rgba(255, 77, 109, 0.2)); 
@@ -159,7 +159,7 @@
     </div>
 
     <div class="page active" id="page1">
-        <svg class="heart-svg" viewBox="0 0 220 240" id="heart-trigger">
+        <svg class="heart-svg" viewBox="0 -40 220 280" id="heart-trigger">
             <defs>
                 <path id="mini-heart-path" transform="translate(35, 80) scale(0.75)" d="M100 180 L88 168 C40 125 10 95 10 60 C10 30 35 5 65 5 C82 5 95 15 100 25 C105 15 118 5 135 5 C165 5 190 30 190 60 C190 95 160 125 112 168 Z" />
                 <clipPath id="heart-clip"> <use href="#mini-heart-path" /> </clipPath>
@@ -169,21 +169,21 @@
                 </linearGradient>
             </defs>
 
-            <path d="M80 70 Q70 10 95 10 Q115 10 105 70" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
-            <path d="M140 70 Q150 10 125 10 Q105 10 115 70" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
+            <path d="M85 65 Q75 -30 105 -30 Q125 -30 110 65" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
+            <path d="M135 65 Q145 -30 115 -30 Q95 -30 110 65" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
 
-            <ellipse cx="110" cy="160" rx="65" ry="55" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
-            <circle cx="110" cy="75" r="50" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
+            <ellipse cx="110" cy="160" rx="55" ry="58" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
+            <circle cx="110" cy="70" r="42" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
 
             <use href="#mini-heart-path" fill="white" />
-            <rect id="liquid-rect" x="0" y="240" width="220" height="240" fill="url(#pink-gradient)" clip-path="url(#heart-clip)" />
+            <rect id="liquid-rect" x="0" y="240" width="220" height="280" fill="url(#pink-gradient)" clip-path="url(#heart-clip)" />
             <use href="#mini-heart-path" fill="none" stroke="#ff4d6d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 
-            <ellipse cx="70" cy="165" rx="15" ry="12" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(-20 70 165)"/>
-            <ellipse cx="150" cy="165" rx="15" ry="12" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(20 150 165)"/>
+            <ellipse cx="75" cy="160" rx="13" ry="10" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(-20 75 160)"/>
+            <ellipse cx="145" cy="160" rx="13" ry="10" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(20 145 160)"/>
             
-            <ellipse cx="85" cy="210" rx="16" ry="12" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(-15 85 210)"/>
-            <ellipse cx="135" cy="210" rx="16" ry="12" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(15 135 210)"/>
+            <ellipse cx="90" cy="210" rx="14" ry="11" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(-15 90 210)"/>
+            <ellipse cx="130" cy="210" rx="14" ry="11" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(15 130 210)"/>
 
         </svg>
         <div class="hint">Hold the bunny's heart ❤️</div>
@@ -218,7 +218,6 @@
         let animationFrame;
 
         function updateProgress() {
-            // ความเร็วระดับกลางๆ
             if (isHolding) {
                 progress += 0.6; 
             } else {
@@ -254,9 +253,7 @@
         const noBtn = document.getElementById('no-btn');
         const bearImg = document.getElementById('bear-img');
 
-        // ==========================================
-        //    ZONE แก้ไขรูปที่ 2 : รายชื่อ GIF ตอนเสียใจ
-        // ==========================================
+        // ZONE แก้ไขรูปที่ 2
         const sadGifs = [
             "https://media.giphy.com/media/LXhHZEFuu7YgaQvY5b/giphy.gif",
             "https://media.giphy.com/media/jwHVcOu725jHSUA6cT/giphy.gif",
@@ -264,9 +261,7 @@
             "https://media.giphy.com/media/lMiFZe6DY8s6CyYTiH/giphy.gif"
         ];
         
-        // ==========================================
-        //    ZONE แก้ไขรูปที่ 3 : รูปตอนสำเร็จ (กด Yes)
-        // ==========================================
+        // ZONE แก้ไขรูปที่ 3
         const successGif = "https://media.giphy.com/media/PraA4BQRVgojuhoZdz/giphy.gif"; 
 
         const phrases = [
@@ -289,12 +284,11 @@
         });
 
         yesBtn.addEventListener('click', () => {
-            // แก้ไขข้อความตรงนี้ครับ
             document.querySelector('.container').innerHTML = `
                 <div class="gif-container">
                     <img src="${successGif}" style="width: 100%; height: auto; object-fit: contain;">
                 </div>
-                <h1 style="font-size: 2rem; margin-top: 20px;">Happy Valentine's Day! 💖</h1>
+                <h1 style="font-size: 2rem; margin-top: 20px;">Happy Valentine Day!💖</h1>
             `;
         });
     </script>
