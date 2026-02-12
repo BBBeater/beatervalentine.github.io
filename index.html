@@ -48,6 +48,16 @@
 
         .heart-svg:active { transform: scale(0.95); }
 
+        /* เพิ่ม Animation สำหรับคลื่นน้ำ */
+        .wave-anim {
+            animation: wave-move 2s linear infinite; /* คลื่นขยับตลอดเวลา */
+        }
+
+        @keyframes wave-move {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-200px); /* ขยับไปทางซ้ายให้ครบ 1 ลูปคลื่น */ }
+        }
+
         .hint {
             margin-top: 10px;
             color: #ff4d6d;
@@ -176,7 +186,15 @@
             <circle cx="100" cy="65" r="40" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
 
             <use href="#mini-heart-path" fill="white" />
-            <rect id="liquid-rect" x="0" y="210" width="200" height="200" fill="url(#pink-gradient)" clip-path="url(#heart-clip)" />
+            
+            <g clip-path="url(#heart-clip)">
+                <g id="liquid-group" transform="translate(0, 205)">
+                    <path class="wave-anim" fill="url(#pink-gradient)" 
+                          d="M0,0 C50,25 150,25 200,0 C250,25 350,25 400,0 V300 H0 V0 Z"
+                          transform="translate(-100, 0)" />
+                </g>
+            </g>
+
             <use href="#mini-heart-path" fill="none" stroke="#ff4d6d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 
             <ellipse cx="62" cy="160" rx="13" ry="10" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(-30 62 160)"/>
@@ -207,8 +225,8 @@
     </div>
 
     <script>
-        /* ---------- HEART LOGIC ---------- */
-        const liquidRect = document.getElementById('liquid-rect');
+        /* ---------- HEART LOGIC (แก้ไขให้รองรับคลื่น) ---------- */
+        const liquidGroup = document.getElementById('liquid-group'); // เปลี่ยนจาก rect เป็น group
         const heart = document.getElementById('heart-trigger');
         const page1 = document.getElementById('page1');
         const page2 = document.getElementById('page2');
@@ -227,12 +245,11 @@
             if (progress < 0) progress = 0;
             if (progress > 100) progress = 100;
 
-            // แก้ไขการคำนวณความสูงน้ำ
-            // น้ำเริ่มจาก Y=210 (ก้นหัวใจ) ไปจบที่ Y=70 (ยอดหัวใจ)
-            // ระยะทางคือ 140px
-            // สูตร: 210 - (progress * 1.4)
-            // เมื่อ progress=100 -> 210 - 140 = 70 (พอดีเป๊ะ)
-            liquidRect.setAttribute('y', 210 - (progress * 1.4));
+            // คำนวณตำแหน่ง Y ใหม่ (ระยะทาง 135px จาก 205 ถึง 70)
+            const newY = 205 - (progress / 100 * 135);
+            
+            // ใช้ transform: translate(0, y) แทนการตั้งค่า attribute y
+            liquidGroup.setAttribute('transform', `translate(0, ${newY})`);
 
             if (progress >= 100) {
                 page1.classList.remove('active');
@@ -293,7 +310,7 @@
                 <div class="gif-container">
                     <img src="${successGif}" style="width: 100%; height: auto; object-fit: contain;">
                 </div>
-                <h1 style="font-size: 2rem; margin-top: 20px;">Happy Valentine Day!💖</h1>
+                <h1 style="font-size: 2rem; margin-top: 20px;">Happy Valentine's Day! My jeans💖</h1>
             `;
         });
     </script>
