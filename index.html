@@ -143,9 +143,20 @@
         }
         #no-btn:active { transform: translateY(4px); box-shadow: none; }
 
+        .preload { width: 0; height: 0; opacity: 0; position: absolute; z-index: -1; }
+
     </style>
 </head>
 <body>
+
+    <div class="preload">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNm54YmUxam9qbnc1eDc3ZmlzOHdvajhvMno2a3FkcTNrM210cDBsNyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/4asRlBKdJaPeBahjcL/giphy.gif" />
+        <img src="https://media.giphy.com/media/LXhHZEFuu7YgaQvY5b/giphy.gif" />
+        <img src="https://media.giphy.com/media/jwHVcOu725jHSUA6cT/giphy.gif" />
+        <img src="https://media.giphy.com/media/BzKxwk839bwqM95aWz/giphy.gif" />
+        <img src="https://media.giphy.com/media/lMiFZe6DY8s6CyYTiH/giphy.gif" />
+        <img src="https://media.giphy.com/media/nkGTPAn0ESO9MsyuQM/giphy.gif" />
+    </div>
 
     <div class="page active" id="page1">
         <svg class="heart-svg" viewBox="0 0 200 240" id="heart-trigger">
@@ -182,7 +193,7 @@
         <div class="container">
             <div class="gif-container">
                 <img id="bear-img" 
-                     src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHR6dGZ5aGZ1a3p4ZWZ6cGZ5aGZ1a3p4ZWZ6cGZ5aGZ1a3p4ZWZ6cGZ5aGZ1a3p4ZWZ6cGZ5aGZ1a3p4ZWZ6cGZ5YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/QvBoMEcQ7DQXK/giphy.gif" 
+                     src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNm54YmUxam9qbnc1eDc3ZmlzOHdvajhvMno2a3FkcTNrM210cDBsNyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/4asRlBKdJaPeBahjcL/giphy.gif" 
                      alt="Cute Bunny">
             </div>
             
@@ -207,11 +218,11 @@
         let animationFrame;
 
         function updateProgress() {
-            // ปรับความเร็วตรงนี้ (ตัวเลขน้อย = ช้า, ตัวเลขมาก = เร็ว)
+            // ความเร็วระดับกลางๆ (ไม่ต้องกดนานเกินไป)
             if (isHolding) {
-                progress += 0.6; // <--- ปรับให้ช้าลงแล้ว (เดิม 2)
+                progress += 0.6; 
             } else {
-                progress -= 1;   // <--- ลดความเร็วตอนปล่อยด้วย จะได้ไม่วูบหายไปเลย
+                progress -= 1;   
             }
 
             if (progress < 0) progress = 0;
@@ -245,20 +256,21 @@
 
         // ==========================================
         //    ZONE แก้ไขรูปที่ 2 : รายชื่อ GIF ตอนเสียใจ
-        //    (ใส่ลิงก์รูปกี่รูปก็ได้ คั่นด้วยเครื่องหมายจุลภาค , )
         // ==========================================
         const sadGifs = [
-            "https://media.tenor.com/K3gI-hM8gxQAAAAj/rabbit-cry.gif",
-            "https://media.tenor.com/xnYtYgH4WzEAAAAj/bunny-cry.gif"
+            "https://media.giphy.com/media/LXhHZEFuu7YgaQvY5b/giphy.gif",
+            "https://media.giphy.com/media/jwHVcOu725jHSUA6cT/giphy.gif",
+            "https://media.giphy.com/media/BzKxwk839bwqM95aWz/giphy.gif",
+            "https://media.giphy.com/media/lMiFZe6DY8s6CyYTiH/giphy.gif"
         ];
         
         // ==========================================
         //    ZONE แก้ไขรูปที่ 3 : รูปตอนสำเร็จ (กด Yes)
         // ==========================================
-        const successGif = "https://media.tenor.com/Z7s7KgKj3QAAAAAj/bunny-love.gif"; 
+        const successGif = "https://media.giphy.com/media/nkGTPAn0ESO9MsyuQM/giphy.gif"; 
 
         const phrases = [
-            "No", "Are you sure?", "Really sure?", "Pookie please 🥺", 
+            "No", "Are you sure?", "Really sure?", "Baby please 🥺", 
             "Don't do this!", "I'm gonna cry...", "You're breaking my heart ;("
         ];
         
