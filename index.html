@@ -37,8 +37,8 @@
 
         /* ---------- 1. RABBIT HEART SECTION ---------- */
         .heart-svg {
-            width: 340px; /* ขยายพื้นที่อีกนิด */
-            height: 380px; /* เพิ่มความสูงเพราะยืดหู */
+            width: 320px; 
+            height: 360px; /* สูงเผื่อหู */
             cursor: pointer;
             overflow: visible;
             filter: drop-shadow(0 10px 15px rgba(255, 77, 109, 0.2)); 
@@ -150,10 +150,10 @@
 <body>
 
     <div class="preload">
-        <img src="https://media.tenor.com/UbdvH3qE120AAAAj/sad-bunny.gif" />
-        <img src="https://media.tenor.com/V4jIlvXbF4AAAAAj/sad-bunny-bunny.gif" />
-        <img src="https://media.tenor.com/2Xy-gMvD32kAAAAj/sad-bunny.gif" />
-        <img src="https://media.tenor.com/J1yJ85tKxXUAAAAj/love-bunny.gif" />
+        <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHR6dGZ5aGZ1a3p4ZWZ6cGZ5aGZ1a3p4ZWZ6cGZ5aGZ1a3p4ZWZ6cGZ5aGZ1a3p4ZWZ6cGZ5aGZ1a3p4ZWZ6cGZ5YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/QvBoMEcQ7DQXK/giphy.gif" />
+        <img src="https://media.tenor.com/K3gI-hM8gxQAAAAj/rabbit-cry.gif" />
+        <img src="https://media.tenor.com/xnYtYgH4WzEAAAAj/bunny-cry.gif" />
+        <img src="https://media.tenor.com/Z7s7KgKj3QAAAAAj/bunny-love.gif" />
     </div>
 
     <div class="page active" id="page1">
@@ -167,32 +167,20 @@
                 </linearGradient>
             </defs>
 
-            <path d="M65 60 Q50 -10 85 -10 Q105 -10 95 60" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
-            <path d="M135 60 Q150 -10 115 -10 Q95 -10 105 60" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
+            <path d="M70 60 Q60 -10 85 -10 Q100 -10 95 60" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
+            <path d="M130 60 Q140 -10 115 -10 Q100 -10 105 60" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
 
-            <ellipse cx="100" cy="150" rx="70" ry="60" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
-            
-            <circle cx="100" cy="65" r="50" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
-
-            <g transform="translate(0, -25)"> <circle cx="82" cy="85" r="5.5" fill="#444" />
-                <circle cx="80" cy="83" r="2" fill="#fff" /> 
-                <circle cx="118" cy="85" r="5.5" fill="#444" />
-                <circle cx="120" cy="83" r="2" fill="#fff" />
-                <ellipse cx="100" cy="92" rx="3" ry="2" fill="#ff9aaf"/>
-                <path d="M95 98 Q100 103 105 98" fill="none" stroke="#444" stroke-width="2.5" stroke-linecap="round" />
-                <ellipse cx="78" cy="98" rx="7" ry="4" fill="#ff8fab" opacity="0.7"/>
-                <ellipse cx="122" cy="98" rx="7" ry="4" fill="#ff8fab" opacity="0.7"/>
-            </g>
-
+            <ellipse cx="100" cy="150" rx="55" ry="60" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
+            <circle cx="100" cy="65" r="40" fill="#fff" stroke="#ff9aaf" stroke-width="4" />
             <use href="#mini-heart-path" fill="white" />
             <rect id="liquid-rect" x="0" y="240" width="200" height="240" fill="url(#pink-gradient)" clip-path="url(#heart-clip)" />
             <use href="#mini-heart-path" fill="none" stroke="#ff4d6d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
 
-            <ellipse cx="55" cy="165" rx="14" ry="12" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(-20 55 165)"/>
-            <ellipse cx="145" cy="165" rx="14" ry="12" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(20 145 165)"/>
+            <ellipse cx="65" cy="165" rx="12" ry="10" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(-20 65 165)"/>
+            <ellipse cx="135" cy="165" rx="12" ry="10" fill="#fff" stroke="#ff9aaf" stroke-width="3" transform="rotate(20 135 165)"/>
             
-            <ellipse cx="70" cy="200" rx="16" ry="12" fill="#fff" stroke="#ff9aaf" stroke-width="3" />
-            <ellipse cx="130" cy="200" rx="16" ry="12" fill="#fff" stroke="#ff9aaf" stroke-width="3" />
+            <ellipse cx="75" cy="205" rx="14" ry="10" fill="#fff" stroke="#ff9aaf" stroke-width="3" />
+            <ellipse cx="125" cy="205" rx="14" ry="10" fill="#fff" stroke="#ff9aaf" stroke-width="3" />
 
         </svg>
         <div class="hint">Hold the bunny's heart ❤️</div>
@@ -202,7 +190,7 @@
         <div class="container">
             <div class="gif-container">
                 <img id="bear-img" 
-                     src="https://media.tenor.com/NdaK7yR_sX8AAAAj/mochi-mochimochi.gif" 
+                     src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHR6dGZ5aGZ1a3p4ZWZ6cGZ5aGZ1a3p4ZWZ6cGZ5aGZ1a3p4ZWZ6cGZ5aGZ1a3p4ZWZ6cGZ5aGZ1a3p4ZWZ6cGZ5YSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/QvBoMEcQ7DQXK/giphy.gif" 
                      alt="Cute Bunny">
             </div>
             
@@ -233,7 +221,7 @@
             if (progress < 0) progress = 0;
             if (progress > 100) progress = 100;
 
-            // ปรับค่า Y ให้สัมพัทธ์กับความสูงใหม่ของ SVG (240)
+            // ปรับค่า Y ให้สัมพันธ์กับ viewBox 240
             liquidRect.setAttribute('y', 240 - (progress * 2.4));
 
             if (progress >= 100) {
@@ -260,16 +248,14 @@
         const noBtn = document.getElementById('no-btn');
         const bearImg = document.getElementById('bear-img');
 
-        // รายชื่อ GIF กระต่ายร้องไห้
+        // รายชื่อ GIF กระต่ายร้องไห้ชุดใหม่
         const sadGifs = [
-            "https://media.tenor.com/UbdvH3qE120AAAAj/sad-bunny.gif",
-            "https://media.tenor.com/V4jIlvXbF4AAAAAj/sad-bunny-bunny.gif",
-            "https://media.tenor.com/2Xy-gMvD32kAAAAj/sad-bunny.gif",
-            "https://media.tenor.com/b_V_D8j6v4AAAAAj/cry-rabbit.gif"
+            "https://media.tenor.com/K3gI-hM8gxQAAAAj/rabbit-cry.gif",
+            "https://media.tenor.com/xnYtYgH4WzEAAAAj/bunny-cry.gif"
         ];
         
         // GIF กระต่ายกอดกัน (เมื่อกด Yes)
-        const successGif = "https://media.tenor.com/J1yJ85tKxXUAAAAj/love-bunny.gif"; 
+        const successGif = "https://media.tenor.com/Z7s7KgKj3QAAAAAj/bunny-love.gif"; 
 
         const phrases = [
             "No", "Are you sure?", "Really sure?", "Pookie please 🥺", 
